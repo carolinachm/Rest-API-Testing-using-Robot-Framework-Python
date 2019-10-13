@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.5.3 on linux)" rpa="false" generated="20191013 17:27:18.427">
+<suite name="TC05 ComplexJSONResponseValidation" id="s1" source="/home/carolina/Documents/automacao/Rest-API-Testing-using-Robot-Framework-Python/TestCases/TC05_ComplexJSONResponseValidation.robot">
+<test name="Get_countryInfo" id="s1-t1">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg level="INFO" timestamp="20191013 17:27:18.760">Creating Session using : alias=mysession, url=https://restcountries.eu, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20191013 17:27:18.759" endtime="20191013 17:27:18.760"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>rest/v2/alpha/IN</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg level="INFO" timestamp="20191013 17:27:19.407">Get Request using : alias=mysession, uri=rest/v2/alpha/IN, headers=None json=None</msg>
+<msg level="INFO" timestamp="20191013 17:27:19.408">/usr/lib/python3/dist-packages/urllib3/connectionpool.py:845: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg level="INFO" timestamp="20191013 17:27:19.408">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20191013 17:27:18.760" endtime="20191013 17:27:19.408"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${json_object}</var>
+</assign>
+<msg level="INFO" timestamp="20191013 17:27:19.408">To JSON using : content={"name":"India","topLevelDomain":[".in"],"alpha2Code":"IN","alpha3Code":"IND","callingCodes":["91"],"capital":"New Delhi","altSpellings":["IN","Bhārat","Republic of India","Bharat Ganrajya"],"region":"Asia","subregion":"Southern Asia","population":1295210000,"latlng":[20.0,77.0],"demonym":"Indian","area":3287590.0,"gini":33.4,"timezones":["UTC+05:30"],"borders":["AFG","BGD","BTN","MMR","CHN","NPL","PAK","LKA"],"nativeName":"भारत","numericCode":"356","currencies":[{"code":"INR","name":"Indian rupee","symbol":"₹"}],"languages":[{"iso639_1":"hi","iso639_2":"hin","name":"Hindi","nativeName":"हिन्दी"},{"iso639_1":"en","iso639_2":"eng","name":"English","nativeName":"English"}],"translations":{"de":"Indien","es":"India","fr":"Inde","ja":"インド","it":"India","br":"Índia","pt":"Índia","nl":"India","hr":"Indija","fa":"هند"},"flag":"https://restcountries.eu/data/ind.svg","regionalBlocs":[{"acronym":"SAARC","name":"South Asian Association for Regional Cooperation","otherAcronyms":[],"otherNames":[]}],"cioc":"IND"} </msg>
+<msg level="INFO" timestamp="20191013 17:27:19.408">To JSON using : pretty_print=False </msg>
+<msg level="INFO" timestamp="20191013 17:27:19.408">${json_object} = {'alpha2Code': 'IN', 'borders': ['AFG', 'BGD', 'BTN', 'MMR', 'CHN', 'NPL', 'PAK', 'LKA'], 'alpha3Code': 'IND', 'languages': [{'name': 'Hindi', 'iso639_2': 'hin', 'nativeName': 'हिन्दी', 'iso639_1': 'h...</msg>
+<status status="PASS" starttime="20191013 17:27:19.408" endtime="20191013 17:27:19.408"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_object}</arg>
+<arg>$.name</arg>
+</arguments>
+<assign>
+<var>${country_Name}</var>
+</assign>
+<msg level="INFO" timestamp="20191013 17:27:19.432">${country_Name} = ['India']</msg>
+<status status="PASS" starttime="20191013 17:27:19.408" endtime="20191013 17:27:19.432"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${country_Name[0]}</arg>
+</arguments>
+<status status="PASS" starttime="20191013 17:27:19.432" endtime="20191013 17:27:19.432"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${country_Name[0]}</arg>
+<arg>India</arg>
+</arguments>
+<status status="PASS" starttime="20191013 17:27:19.433" endtime="20191013 17:27:19.433"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_object}</arg>
+<arg>$.borders[0]</arg>
+</arguments>
+<assign>
+<var>${boarder}</var>
+</assign>
+<msg level="INFO" timestamp="20191013 17:27:19.454">${boarder} = ['AFG']</msg>
+<status status="PASS" starttime="20191013 17:27:19.433" endtime="20191013 17:27:19.454"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${boarder[0]}</arg>
+</arguments>
+<status status="PASS" starttime="20191013 17:27:19.454" endtime="20191013 17:27:19.455"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${country_Name[0]}</arg>
+<arg>India</arg>
+</arguments>
+<status status="PASS" starttime="20191013 17:27:19.455" endtime="20191013 17:27:19.455"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${boarder[0]}</arg>
+<arg>AFG</arg>
+</arguments>
+<status status="PASS" starttime="20191013 17:27:19.455" endtime="20191013 17:27:19.455"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json_object}</arg>
+<arg>$.borders</arg>
+</arguments>
+<assign>
+<var>${boarders}</var>
+</assign>
+<msg level="INFO" timestamp="20191013 17:27:19.475">${boarders} = [['AFG', 'BGD', 'BTN', 'MMR', 'CHN', 'NPL', 'PAK', 'LKA']]</msg>
+<status status="PASS" starttime="20191013 17:27:19.456" endtime="20191013 17:27:19.475"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${boarders[0]}</arg>
+</arguments>
+<status status="PASS" starttime="20191013 17:27:19.476" endtime="20191013 17:27:19.476"></status>
+</kw>
+<kw name="Should Contain Any" library="BuiltIn">
+<doc>Fails if ``container`` does not contain any of the ``*items``.</doc>
+<arguments>
+<arg>${boarders[0]}</arg>
+<arg>AFG</arg>
+<arg>BGD</arg>
+<arg>BTN</arg>
+<arg>MMR</arg>
+<arg>CHN</arg>
+<arg>NPL</arg>
+<arg>PAK</arg>
+<arg>LKA</arg>
+</arguments>
+<status status="PASS" starttime="20191013 17:27:19.476" endtime="20191013 17:27:19.476"></status>
+</kw>
+<status status="PASS" starttime="20191013 17:27:18.759" critical="yes" endtime="20191013 17:27:19.477"></status>
+</test>
+<doc>Suite description</doc>
+<status status="PASS" starttime="20191013 17:27:18.428" endtime="20191013 17:27:19.477"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="TC05 ComplexJSONResponseValidation" id="s1" pass="1" fail="0">TC05 ComplexJSONResponseValidation</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
